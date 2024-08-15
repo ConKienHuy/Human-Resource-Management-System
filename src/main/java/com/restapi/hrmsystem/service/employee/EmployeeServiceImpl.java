@@ -1,6 +1,7 @@
 ﻿package com.restapi.hrmsystem.service.employee;
 
 import com.restapi.hrmsystem.entity.Employee;
+import com.restapi.hrmsystem.exception.employee.EmployeeNotFoundException;
 import com.restapi.hrmsystem.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public Employee getEmployee(int id) {
-        return employeeRepository.getReferenceById(id);
+        Employee employee = employeeRepository.findById(id)
+                .orElse(null);
+        if (employee == null) {
+            throw new EmployeeNotFoundException("Employee with id " + id + " not found");
+        }
+        return employee;
     }
 
     public List<Employee> getAllEmployee() {
@@ -26,6 +32,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public Employee saveEmployee(Employee employee) {
+        Employee saveEmployee = employeeRepository.findById(employee.getEmployeeID())
+                .orElse(null);
+        if (saveEmployee == null) {
+            throw new EmployeeNotFoundException("Employee with id" + employee.getEmployeeID() + " not found");
+        }
         return employeeRepository.save(employee);
     }
 
@@ -34,6 +45,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public void deleteEmployee(int id) {
+        Employee employee = employeeRepository.findById(id)
+                        .orElse(null);
+        if(employee == null) {
+            throw new EmployeeNotFoundException("Employee with id" + id + " not found");
+        }
         employeeRepository.deleteById(id);
     }
 }
