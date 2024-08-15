@@ -1,4 +1,4 @@
-﻿package com.restapi.hrmsystem.service.department;
+package com.restapi.hrmsystem.service.department;
 
 import com.restapi.hrmsystem.entity.Department;
 import com.restapi.hrmsystem.exception.BaseException;

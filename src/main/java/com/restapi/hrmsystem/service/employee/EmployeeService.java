@@ -1,4 +1,4 @@
-﻿package com.restapi.hrmsystem.service.employee;
+package com.restapi.hrmsystem.service.employee;
 
 import com.restapi.hrmsystem.entity.Employee;
 
@@ -16,4 +16,5 @@ public interface EmployeeService {
 
     void deleteEmployee(int id);
 
+    Employee getEmployeeByEmployeeID(String employeeID);
 }

@@ -1,4 +1,4 @@
-﻿package com.restapi.hrmsystem.service.employee;
+package com.restapi.hrmsystem.service.employee;
 
 import com.restapi.hrmsystem.entity.Employee;
 import com.restapi.hrmsystem.exception.employee.EmployeeNotFoundException;
@@ -32,7 +32,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public Employee saveEmployee(Employee employee) {
-        Employee saveEmployee = employeeRepository.findById(employee.getEmployeeID())
+        Employee saveEmployee = employeeRepository.findById(employee.getId())
                 .orElse(null);
         if (saveEmployee == null) {
             throw new EmployeeNotFoundException("Employee with id" + employee.getEmployeeID() + " not found");
@@ -51,5 +51,9 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new EmployeeNotFoundException("Employee with id" + id + " not found");
         }
         employeeRepository.deleteById(id);
+    }
+
+    public Employee getEmployeeByEmployeeID(String employeeID) {
+        return employeeRepository.findByEmployeeID(employeeID);
     }
 }

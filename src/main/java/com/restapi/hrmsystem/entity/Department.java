@@ -1,9 +1,11 @@
-﻿package com.restapi.hrmsystem.entity;
+package com.restapi.hrmsystem.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
 
-@Data
+import java.util.List;
+
+@Entity
 @Table(name = "department")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,4 +22,9 @@ public class Department {
 
     @Column(name = "department_name")
     private String departmentName;
+
+    @OneToMany(mappedBy = "department",
+            cascade = {CascadeType.PERSIST, CascadeType.REFRESH,
+                        CascadeType.DETACH, CascadeType.MERGE})
+    private List<Employee> employees;
 }

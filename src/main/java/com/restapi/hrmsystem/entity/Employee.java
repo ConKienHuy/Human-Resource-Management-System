@@ -1,9 +1,10 @@
-﻿package com.restapi.hrmsystem.entity;
+package com.restapi.hrmsystem.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.stereotype.Component;
 
-@Data
+@Entity
 @Table(name = "employee")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,13 +14,14 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
     @Column(name = "employee_id")
-    private int employeeID;
+    private String employeeID;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "department_id")
     private Department department;
 
     @Column(name = "employee_name")

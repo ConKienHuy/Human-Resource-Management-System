@@ -1,4 +1,4 @@
-﻿package com.restapi.hrmsystem.entity;
+package com.restapi.hrmsystem.entity;
 
 import lombok.*;
 

@@ -1,4 +1,4 @@
-﻿package com.restapi.hrmsystem.restcontroller;
+package com.restapi.hrmsystem.restcontroller;
 
 import com.restapi.hrmsystem.entity.Employee;
 import com.restapi.hrmsystem.service.employee.EmployeeService;
@@ -53,4 +53,5 @@ public class EmployeeRestController {
     public void deleteEmployee(@PathVariable int id) {
         employeeService.deleteEmployee(id);
     }
+
 }

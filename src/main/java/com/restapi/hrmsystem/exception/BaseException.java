@@ -1,4 +1,4 @@
-﻿package com.restapi.hrmsystem.exception;
+package com.restapi.hrmsystem.exception;
 
 public class BaseException extends RuntimeException {
 
