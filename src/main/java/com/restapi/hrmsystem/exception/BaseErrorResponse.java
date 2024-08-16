@@ -6,7 +6,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-public class BaseErrorRespond {
+public class BaseErrorResponse {
     // POJO
     // The custom Java class to sent back to client as JSON
     private int status;
