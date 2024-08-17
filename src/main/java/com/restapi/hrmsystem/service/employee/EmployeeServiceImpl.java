@@ -1,8 +1,10 @@
 package com.restapi.hrmsystem.service.employee;
 
+import com.restapi.hrmsystem.entity.Department;
 import com.restapi.hrmsystem.entity.Employee;
-import com.restapi.hrmsystem.exception.employee.EmployeeNotFoundException;
+import com.restapi.hrmsystem.exception.EntityNotFoundException;
 import com.restapi.hrmsystem.repository.EmployeeRepository;
+import com.restapi.hrmsystem.service.department.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,48 +14,68 @@ import java.util.List;
 public class EmployeeServiceImpl implements EmployeeService {
 
     private EmployeeRepository employeeRepository;
+    private DepartmentService departmentService;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, DepartmentService departmentService) {
         this.employeeRepository = employeeRepository;
+        this.departmentService = departmentService;
     }
 
-    public Employee getEmployee(int id) {
+    public Employee findByID(int id) {
         Employee employee = employeeRepository.findById(id)
                 .orElse(null);
         if (employee == null) {
-            throw new EmployeeNotFoundException("Employee with id " + id + " not found");
+            throw new EntityNotFoundException("Employee with id " + id + " not found");
         }
         return employee;
     }
 
-    public List<Employee> getAllEmployee() {
+    public List<Employee> findAll() {
         return employeeRepository.findAll();
     }
 
-    public Employee saveEmployee(Employee employee) {
-        Employee saveEmployee = employeeRepository.findById(employee.getId())
+    public Employee save(Employee employee) {
+        // Check if department exsit
+        Department d = departmentService.findByID(employee.getDepartment().getId());
+        employee.setDepartment(d);
+        return employeeRepository.save(employee);
+    }
+
+    // Bussinesses logic handling layer
+    public Employee update(Employee employee, int id) {
+        Employee updateEmployee = employeeRepository.findById(id)
                 .orElse(null);
-        if (saveEmployee == null) {
-            throw new EmployeeNotFoundException("Employee with id" + employee.getEmployeeID() + " not found");
+        if (updateEmployee == null) {
+            throw new EntityNotFoundException("Employee with id" + id + " not found");
         }
-        return employeeRepository.save(employee);
+        // Check if department existed in the database else throw a Not Found Exception
+        Department d = departmentService.findByID(employee.getDepartment().getId());
+        updateEmployee.setDepartment(d);
+        updateEmployee.setName(employee.getName());
+        updateEmployee.setEmail(employee.getEmail());
+        updateEmployee.setAddress(employee.getAddress());
+        updateEmployee.setSalary(employee.getSalary());
+        updateEmployee.setRoles(employee.getRoles());
+
+        return employeeRepository.save(updateEmployee);
     }
 
-    public Employee updateEmployee(Employee employee) {
-        return employeeRepository.save(employee);
-    }
-
-    public void deleteEmployee(int id) {
+    public void delete(int id) {
         Employee employee = employeeRepository.findById(id)
                         .orElse(null);
         if(employee == null) {
-            throw new EmployeeNotFoundException("Employee with id" + id + " not found");
+            throw new EntityNotFoundException("Employee with id" + id + " not found");
         }
+        // Forign key check...
+        //
+
         employeeRepository.deleteById(id);
     }
 
-    public Employee getEmployeeByEmployeeID(String employeeID) {
+    public Employee findByEmployeeID(String employeeID) {
         return employeeRepository.findByEmployeeID(employeeID);
     }
+
+
 }

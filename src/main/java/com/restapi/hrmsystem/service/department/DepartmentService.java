@@ -7,15 +7,15 @@ import java.util.List;
 
 public interface DepartmentService{
 
-    Department findDepartment(int id);
+    Department findByID(int id);
 
-    List<Department> findAllDepartment();
+    List<Department> findAll();
 
-    Department saveDepartment(Department department);
+    Department save(Department department);
 
-    Department updateDepartment(Department department);
+    Department update(Department department, int id);
 
-    void deleteDepartment(int id);
+    void delete(int id);
 
-    List<Department> findDepartmentByDepartmentName(String departmentName);
+    Department findByDepartmentName(String departmentName);
 }

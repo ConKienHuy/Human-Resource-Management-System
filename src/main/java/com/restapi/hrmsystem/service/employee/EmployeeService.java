@@ -6,15 +6,15 @@ import java.util.List;
 
 public interface EmployeeService {
 
-    Employee getEmployee(int id);
+    Employee findByID(int id);
 
-    List<Employee> getAllEmployee();
+    List<Employee> findAll();
 
-    Employee saveEmployee(Employee employee);
+    Employee save(Employee employee);
 
-    Employee updateEmployee(Employee employee);
+    Employee update(Employee employee, int id);
 
-    void deleteEmployee(int id);
+    void delete(int id);
 
-    Employee getEmployeeByEmployeeID(String employeeID);
+    Employee findByEmployeeID(String employeeID);
 }

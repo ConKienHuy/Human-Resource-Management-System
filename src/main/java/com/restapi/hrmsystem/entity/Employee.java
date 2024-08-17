@@ -2,7 +2,6 @@ package com.restapi.hrmsystem.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.stereotype.Component;
 
 @Entity
 @Table(name = "employee")
@@ -20,7 +19,9 @@ public class Employee {
     @Column(name = "employee_id")
     private String employeeID;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.REFRESH,
+                    CascadeType.DETACH, CascadeType.MERGE})
     @JoinColumn(name = "department_id")
     private Department department;
 
