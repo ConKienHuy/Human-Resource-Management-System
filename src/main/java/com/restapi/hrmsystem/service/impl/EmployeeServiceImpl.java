@@ -6,6 +6,7 @@ import com.restapi.hrmsystem.exception.EntityNotFoundException;
 import com.restapi.hrmsystem.repository.EmployeeRepository;
 import com.restapi.hrmsystem.service.DepartmentService;
 import com.restapi.hrmsystem.service.EmployeeService;
+import com.restapi.hrmsystem.service.ParticipantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +17,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     // Bussinesses logic layer
     private EmployeeRepository employeeRepository;
     private DepartmentService departmentService;
+    private ParticipantService participantService;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, DepartmentService departmentService) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, DepartmentService departmentService, ParticipantService ptService) {
         this.employeeRepository = employeeRepository;
         this.departmentService = departmentService;
+        this.participantService = ptService;
     }
 
     public Employee findByID(int id) {
@@ -49,14 +52,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (updateEmployee == null) {
             throw new EntityNotFoundException("Employee with id" + id + " not found");
         }
-        // Check if department existed in the database else throw a Not Found Exception
+        // Check if department existed in the database or else throw a Not Found Exception
         Department d = departmentService.findByID(employee.getDepartment().getId());
         updateEmployee.setDepartment(d);
         updateEmployee.setName(employee.getName());
         updateEmployee.setEmail(employee.getEmail());
         updateEmployee.setAddress(employee.getAddress());
         updateEmployee.setSalary(employee.getSalary());
-        updateEmployee.setRoles(employee.getRoles());
+        updateEmployee.setSkills(employee.getSkills());
 
         return employeeRepository.save(updateEmployee);
     }
@@ -67,8 +70,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         if(employee == null) {
             throw new EntityNotFoundException("Employee with id" + id + " not found");
         }
-        // Forign key check...
-        //
+        // Check if employee participated in a project
+        
 
         employeeRepository.deleteById(id);
     }
