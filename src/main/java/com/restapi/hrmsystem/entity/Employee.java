@@ -34,8 +34,8 @@ public class Employee {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "roles")
-    private String roles;
+    @Column(name = "skills")
+    private String skills;
 
     @Column(name = "salary")
     private double salary;

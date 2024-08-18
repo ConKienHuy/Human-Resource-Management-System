@@ -1,6 +1,5 @@
 package com.restapi.hrmsystem.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 

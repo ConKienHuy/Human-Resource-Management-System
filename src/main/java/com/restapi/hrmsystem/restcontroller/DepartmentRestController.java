@@ -1,7 +1,7 @@
 package com.restapi.hrmsystem.restcontroller;
 
 import com.restapi.hrmsystem.entity.Department;
-import com.restapi.hrmsystem.service.department.DepartmentService;
+import com.restapi.hrmsystem.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,5 +36,10 @@ public class DepartmentRestController {
     @PutMapping("/departments/{id}")
     public Department updateDepartment(@PathVariable int id, @RequestBody Department department){
         return departmentService.update(department,id);
+    }
+
+    @GetMapping("/departments/name/{name}")
+    public Department findbyName(@PathVariable String name){
+        return departmentService.findByDepartmentName(name);
     }
 }

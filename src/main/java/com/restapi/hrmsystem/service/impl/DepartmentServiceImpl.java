@@ -1,8 +1,9 @@
-package com.restapi.hrmsystem.service.department;
+package com.restapi.hrmsystem.service.impl;
 
 import com.restapi.hrmsystem.entity.Department;
 import com.restapi.hrmsystem.exception.EntityNotFoundException;
 import com.restapi.hrmsystem.repository.DepartmentRepository;
+import com.restapi.hrmsystem.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

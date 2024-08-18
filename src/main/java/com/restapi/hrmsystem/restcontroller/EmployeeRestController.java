@@ -1,7 +1,8 @@
 package com.restapi.hrmsystem.restcontroller;
 
 import com.restapi.hrmsystem.entity.Employee;
-import com.restapi.hrmsystem.service.employee.EmployeeService;
+import com.restapi.hrmsystem.service.DepartmentService;
+import com.restapi.hrmsystem.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,10 +13,12 @@ import java.util.List;
 public class EmployeeRestController {
 
     private EmployeeService employeeService;
+    private DepartmentService departmentService;
 
     @Autowired
-    public EmployeeRestController(EmployeeService employeeService) {
+    public EmployeeRestController(EmployeeService employeeService, DepartmentService departmentService) {
         this.employeeService = employeeService;
+        this.departmentService = departmentService;
     }
 
     @GetMapping("/employees")

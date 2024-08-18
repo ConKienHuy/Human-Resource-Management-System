@@ -1,10 +1,11 @@
-package com.restapi.hrmsystem.service.employee;
+package com.restapi.hrmsystem.service.impl;
 
 import com.restapi.hrmsystem.entity.Department;
 import com.restapi.hrmsystem.entity.Employee;
 import com.restapi.hrmsystem.exception.EntityNotFoundException;
 import com.restapi.hrmsystem.repository.EmployeeRepository;
-import com.restapi.hrmsystem.service.department.DepartmentService;
+import com.restapi.hrmsystem.service.DepartmentService;
+import com.restapi.hrmsystem.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-
+    // Bussinesses logic layer
     private EmployeeRepository employeeRepository;
     private DepartmentService departmentService;
 
@@ -42,7 +43,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.save(employee);
     }
 
-    // Bussinesses logic handling layer
     public Employee update(Employee employee, int id) {
         Employee updateEmployee = employeeRepository.findById(id)
                 .orElse(null);
