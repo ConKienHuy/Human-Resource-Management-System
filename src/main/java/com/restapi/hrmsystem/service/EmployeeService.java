@@ -16,5 +16,4 @@ public interface EmployeeService {
 
     void delete(int id);
 
-    Employee findByEmployeeID(String employeeID);
 }

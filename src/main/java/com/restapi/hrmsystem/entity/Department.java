@@ -1,5 +1,6 @@
 package com.restapi.hrmsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,6 +24,7 @@ public class Department {
     @Column(name = "department_name")
     private String departmentName;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, // Default FetchType in one to many
             mappedBy = "department",
             cascade = {CascadeType.PERSIST, CascadeType.REFRESH,

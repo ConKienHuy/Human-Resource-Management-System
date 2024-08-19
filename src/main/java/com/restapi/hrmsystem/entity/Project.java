@@ -1,10 +1,12 @@
-﻿package com.restapi.hrmsystem.entity;
+package com.restapi.hrmsystem.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Entity
-@Table(name = "employee")
+@Table(name = "project")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -14,10 +16,14 @@ public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "project_id")
-    private int projectID;
+    private int id;
 
-    private String projectTitle;
+    private String projectName;
 
     private double budget;
+
+    private LocalDate startDate;
+
+    private LocalDate endDate;
 
 }

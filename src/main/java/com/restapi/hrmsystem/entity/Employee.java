@@ -16,10 +16,7 @@ public class Employee {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "employee_id")
-    private String employeeID;
-
-    @ManyToOne(fetch = FetchType.LAZY,
+    @ManyToOne(fetch = FetchType.EAGER,
             cascade = {CascadeType.PERSIST, CascadeType.REFRESH,
                     CascadeType.DETACH, CascadeType.MERGE})
     @JoinColumn(name = "department_id")

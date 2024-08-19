@@ -1,4 +1,4 @@
-﻿package com.restapi.hrmsystem.entity;
+package com.restapi.hrmsystem.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -6,31 +6,32 @@ import lombok.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "employee")
+@Table(name = "assignment")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Participant {
+public class Assignment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "assigment_id")
     private int id;
-
-    @ManyToOne
-    @JoinColumn(name = "schedule_id")
-    private ScheduleProject scheduleProject;
 
     @OneToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    @Column(name = "participant_role")
-    private String role;
+    @OneToOne
+    @JoinColumn(name = "project_id")
+    Project project;
 
     @Column(name = "start_date")
     private LocalDate startDate;
 
     @Column(name = "end_date")
     private LocalDate endDate;
+
+    @Column(name = "role")
+    private String employeeRole;
 }

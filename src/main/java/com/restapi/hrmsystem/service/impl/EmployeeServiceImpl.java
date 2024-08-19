@@ -6,7 +6,6 @@ import com.restapi.hrmsystem.exception.EntityNotFoundException;
 import com.restapi.hrmsystem.repository.EmployeeRepository;
 import com.restapi.hrmsystem.service.DepartmentService;
 import com.restapi.hrmsystem.service.EmployeeService;
-import com.restapi.hrmsystem.service.ParticipantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,21 +16,16 @@ public class EmployeeServiceImpl implements EmployeeService {
     // Bussinesses logic layer
     private EmployeeRepository employeeRepository;
     private DepartmentService departmentService;
-    private ParticipantService participantService;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, DepartmentService departmentService, ParticipantService ptService) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, DepartmentService departmentService) {
         this.employeeRepository = employeeRepository;
         this.departmentService = departmentService;
-        this.participantService = ptService;
     }
 
     public Employee findByID(int id) {
         Employee employee = employeeRepository.findById(id)
-                .orElse(null);
-        if (employee == null) {
-            throw new EntityNotFoundException("Employee with id " + id + " not found");
-        }
+                .orElseThrow(() -> new EntityNotFoundException("Employee with id " +id+ " not found"));
         return employee;
     }
 
@@ -48,11 +42,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     public Employee update(Employee employee, int id) {
         Employee updateEmployee = employeeRepository.findById(id)
-                .orElse(null);
-        if (updateEmployee == null) {
-            throw new EntityNotFoundException("Employee with id" + id + " not found");
-        }
-        // Check if department existed in the database or else throw a Not Found Exception
+                .orElseThrow(() -> new EntityNotFoundException("Employee with id " +id+ " not found"));
+
+        // Update department the database or else throw a Not Found Exception
         Department d = departmentService.findByID(employee.getDepartment().getId());
         updateEmployee.setDepartment(d);
         updateEmployee.setName(employee.getName());
@@ -65,20 +57,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public void delete(int id) {
-        Employee employee = employeeRepository.findById(id)
-                        .orElse(null);
-        if(employee == null) {
+        Employee employee = employeeRepository.findById(id).orElse(null);
+        if(employee == null)
             throw new EntityNotFoundException("Employee with id" + id + " not found");
-        }
-        // Check if employee participated in a project
-        
-
         employeeRepository.deleteById(id);
     }
-
-    public Employee findByEmployeeID(String employeeID) {
-        return employeeRepository.findByEmployeeID(employeeID);
-    }
-
 
 }
