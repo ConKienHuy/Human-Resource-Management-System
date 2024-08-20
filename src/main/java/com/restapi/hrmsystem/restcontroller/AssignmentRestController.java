@@ -43,4 +43,8 @@ public class AssignmentRestController {
         assignmentService.delete(id);
     }
 
+    @PutMapping("/assignments/progress/{id}")
+    public Assignment updateProgress(@PathVariable int id, @RequestParam int progress){
+        return assignmentService.updateProgress(id,progress);
+    }
 }

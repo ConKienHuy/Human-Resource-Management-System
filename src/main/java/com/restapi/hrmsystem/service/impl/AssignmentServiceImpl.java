@@ -11,6 +11,9 @@ import com.restapi.hrmsystem.service.ProjectService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -20,6 +23,13 @@ public class AssignmentServiceImpl implements AssignmentService {
     private AssignmentRepository assignmentRepository;
     private EmployeeService employeeService;
     private ProjectService projectService;
+
+    public Assignment updateProgress(int id, int percent){
+        Assignment assignment = findById(id);
+        assignment.setCompletionPercentage(percent);
+
+        return assignment;
+    }
 
     @Override
     public Assignment findById(int id) {
@@ -33,8 +43,12 @@ public class AssignmentServiceImpl implements AssignmentService {
     }
 
     @Override
-    public Assignment save(Assignment Assignment) {
-        return assignmentRepository.save(Assignment);
+    public Assignment save(Assignment assignment) {
+        Employee employee = employeeService.findByID(assignment.getEmployee().getId());
+        Project project = projectService.findById(assignment.getProject().getId());
+        assignment.setEmployee(employee);
+        assignment.setProject(project);
+        return assignmentRepository.save(assignment);
     }
 
     @Override
@@ -59,4 +73,5 @@ public class AssignmentServiceImpl implements AssignmentService {
             throw new EntityNotFoundException("Assignment with id " +id+ " not found");
         assignmentRepository.delete(assignment);
     }
+
 }

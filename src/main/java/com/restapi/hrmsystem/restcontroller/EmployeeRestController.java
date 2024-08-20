@@ -4,6 +4,7 @@ import com.restapi.hrmsystem.entity.Employee;
 import com.restapi.hrmsystem.service.DepartmentService;
 import com.restapi.hrmsystem.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,19 +32,25 @@ public class EmployeeRestController {
         return employeeService.findByID(id);
     }
 
+    // @RequestBody tells Spring Boot to convert Json in request body to Employee object
     @PostMapping("/employees")
-    public Employee addEmployee(@RequestBody Employee employee) {
-        return employeeService.save(employee);
+    public ResponseEntity addEmployee(@RequestBody Employee employee) {
+        employeeService.save(employee);
+        // Return STATUS CODE = 200 (ok)
+        // Body contains the newly created Employee object
+        return ResponseEntity.ok().body(employee);
+    }
+
+    @DeleteMapping("/employees/{id}")
+    public ResponseEntity deleteEmployee(@PathVariable int id) {
+        employeeService.delete(id);
+        // Return STATUS CODE = 200 (ok)
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/employees/{id}")
     public Employee updateEmployee(@PathVariable int id, @RequestBody Employee employee){
         return employeeService.update(employee, id);
-    }
-
-    @DeleteMapping("/employees/{id}")
-    public void deleteEmployee(@PathVariable int id) {
-        employeeService.delete(id);
     }
 
 }

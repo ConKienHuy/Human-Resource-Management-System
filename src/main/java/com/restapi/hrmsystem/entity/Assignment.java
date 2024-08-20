@@ -34,4 +34,8 @@ public class Assignment {
 
     @Column(name = "role")
     private String employeeRole;
+
+    @Column(name = "completion_percentage")
+    private int completionPercentage;
+
 }
